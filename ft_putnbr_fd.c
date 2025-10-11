@@ -10,24 +10,44 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
-
-char	*ft_strrchr(const char *s, int c)
+void	ft_putnbr_fd(int n, int fd)
 {
-	int	i;
+	long	nb;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	nb = (long)n;
+	if ( nb < 0)
 	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
-		i--;
+				nb *= -1;
+		ft_putchar_fd('-', fd);
 	}
-	return (NULL);
+	if (nb < 10)
+	{
+		nb += 48;
+		ft_putchar_fd(nb , fd);
+		return ;
+	}
+	else 
+	{
+		ft_putnbr_fd(nb / 10, fd);
+		nb = (nb % 10) + 48;
+		ft_putchar_fd(nb, fd);
+	}
+	return ;
+
+
 }
-// #include <stdio.h>
 // int main (void)
 // {
-// 	char tab1[100] = "ok ooooooobro !";
-// 	printf("%s",ft_strrchr(tab1, 'f'+ 256));
-// 	// ft_strrchr(s, 't' );
+// 	ft_putnbr_fd(-0, 1);
+// 	ft_putchar_fd('\n', 1);
+// 		ft_putnbr_fd(-9, 1);
+// 		ft_putchar_fd('\n', 1);
+// 			ft_putnbr_fd(-10, 1);
+// 			ft_putchar_fd('\n', 1);
+// 				ft_putnbr_fd(-2147483648, 1);
+// 				ft_putchar_fd('\n', 1);
+// 					ft_putnbr_fd(2147483647, 1);
+// 					ft_putchar_fd('\n', 1);
+// 						ft_putnbr_fd(-9, 1);
+// 						ft_putchar_fd('\n', 1);
 // }
