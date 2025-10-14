@@ -17,26 +17,25 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	j;
 
 	i = 0;
-	while (big[i] && i < len)
+	if (*little == '\0')
+		return ((char *)big);
+	while (i < len && big[i])
 	{
 		j = 0;
-		if (big[i] == little[j])
+		while (big[i + j] == little[j] && i + j < len)
 		{
-			while (big[i + j] == little[j])
-			{
-				j++;
-			}
+			j++;
 			if (little[j] == '\0')
 				return ((char *)&big[i]);
 		}
 		i++;
 	}
-	return (NULL);
+	return (0);
 }
 // #include <stdio.h>
 // int main (void)
 // {
-// 	char little[] = "god";
-// 	char big[] = "efwhvfwerkfhrevf  dgdgdgodjekgdiuerygc";
-// 	printf("%s",ft_strnstr(big, little, 21));
+// 	char little[] = "";
+// 	char big[] = "";
+// 	printf("%s",ft_strnstr(big, little, 0));
 // }

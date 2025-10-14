@@ -24,7 +24,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 	{
 		ft_memcpy(dest, src, n);
 	}
-	else if(dest > src)
+	else if (dest > src)
 	{
 		while (n--)
 			pdest[n] = psrc[n];

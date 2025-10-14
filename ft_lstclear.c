@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfiora-d <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/03 10:57:06 by nfiora-d          #+#    #+#             */
-/*   Updated: 2025/10/03 12:43:43 by nfiora-d         ###   ####lausanne.ch   */
+/*   Created: 2025/10/14 16:08:16 by nfiora-d          #+#    #+#             */
+/*   Updated: 2025/10/14 16:08:23 by nfiora-d         ###   ####lausanne.ch   */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
-char	*ft_strrchr(const char *s, int c)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	int	i;
+	t_list	*current;
+	t_list	*next;
 
-	i = ft_strlen(s);
-	while (i >= 0)
+	if (!*lst || !del)
+		return ;
+	current = *lst;
+	while (current)
 	{
-		if ((unsigned char)s[i] == (unsigned char)c)
-			return ((char *)&s[i]);
-		i--;
+		next = current->next;
+		del(current->content);
+		free(current);
+		current = next;
 	}
-	return (NULL);
+	*lst = 0;
 }
-// #include <stdio.h>
-// int main (void)
-// {
-// 	char tab1[100] = "ok ooooooobro !";
-// 	printf("%s",ft_strrchr(tab1, 'f'+ 256));
-// 	// ft_strrchr(s, 't' );
-// } 

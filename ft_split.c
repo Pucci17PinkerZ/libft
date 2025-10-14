@@ -11,21 +11,24 @@
 /* ************************************************************************** */
 #include "libft.h"
 
-int	ft_count_words(const char *s, char c)
+size_t	ft_count_words(const char *s, char c)
 {
 	size_t	i;
-	int		count;
+	size_t	count;
 
 	i = 0;
 	count = 0;
 	while (s[i])
 	{
-		if (s[i] == c)
+		while (s[i] == c && s[i])
+			i++;
+		if (s[i] != c && s[i])
+		{
 			count++;
-		i++;
+			while (s[i] != c && s[i])
+				i++;
+		}
 	}
-	if (s[i -1] != c)
-		count++;
 	return (count);
 }
 
@@ -35,10 +38,10 @@ char	*ft_strndup(const char *s1, size_t n)
 	size_t	i;
 
 	i = 0;
-	str = (char *)malloc(sizeof(char) * n + 1);
+	str = (char *)malloc(sizeof(char) * (n + 1));
 	if (!str)
 		return (NULL);
-	while (s1[i] && i < n)
+	while (i < n)
 	{
 		str[i] = s1[i];
 		i++;
@@ -47,24 +50,29 @@ char	*ft_strndup(const char *s1, size_t n)
 	return (str);
 }
 
-char	**ft_split(char const *s, char c)
+void	ft_free(char **tab, int j)
 {
-	size_t	i;
-	size_t	j;
-	size_t	pos;
-	size_t	letter;
-	char	**tab;
+	while (j >= 0)
+	{
+		free(tab[j]);
+		j--;
+	}
+	free(tab);
+}
 
-	i = 0;
+int	ft_new_word(char const *s, char c, char **tab)
+{
+	size_t	j;
+	size_t	i;
+	size_t	letter;
+	size_t	pos;
+
 	j = 0;
-	letter = 0;
-	tab = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
-	if (tab == NULL)
-		return (NULL);
-	while (s[i])
+	i = 0;
+	while (j < ft_count_words(s, c))
 	{
 		letter = 0;
-		while (s[i] == c)
+		while (s[i] == c && s[i])
 			i++;
 		pos = i;
 		while (s[i] != c && s[i])
@@ -73,18 +81,41 @@ char	**ft_split(char const *s, char c)
 			i++;
 		}
 		tab[j] = ft_strndup(&s[pos], letter);
+		if (!tab[j])
+			return(ft_free(tab, (int)(j - 1)), 0);
 		j++;
 	}
-	((char *)tab)[j] = '\0';
-	return (tab);
+	tab[j] = 0;
+	return (0);
 }
+
+char	**ft_split(char const *s, char c)
+{
+	char	**tab;
+
+	if (!s)
+		return (NULL);
+	tab = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
+	if (tab == NULL)
+		return (NULL);
+	ft_new_word(s, c, tab);
+	return ((char **)tab);
+}
+
 // int	main (void)
 // {
-// 	char tab[100] = "lol  lil lul";
-// 	char **swo;
-// 	swo = ft_split(tab, 6);
-// 	printf("%s\n", swo[0]);
+// 	// char tab[100] = "\0lol\0lil\0lul\0";
+// 	// char **swo;
+// 	// int i = 0;
+// 	// swo = ft_split(tab, '\0');
+// 	// (void)swo;
+// 	// (void)tab;
+// 	// if (!swo || swo[1] == 0)
+// 	// printf("swo est vide\n");
+// 	// printf("%ld", ft_count_words("hello", ' '));
+// 	// for (i = 0; swo[i]; i++)
+// 	// 	printf("%s\n", swo[i]);
 // 	// printf("%s\n", swo[1]);
-// 	// printf("%s\n", swo[2]);
-// 	// printf("%s\n", swo[3]);
+// 	// printf("%p\n", &swo[0][1]);
+// 	// ft_split("hello!", ' ');
 // }

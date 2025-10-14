@@ -15,7 +15,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	size_t	i;
 	char	*sub;
-	size_t size;
+	size_t	size;
 
 	i = 0;
 	if (start >= ft_strlen(s))
@@ -38,7 +38,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	return (sub);
 }
-
 
 // #include <stdio.h>
 // int main (void)

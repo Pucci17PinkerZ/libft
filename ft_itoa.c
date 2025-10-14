@@ -37,11 +37,11 @@ char	*ft_itoa(int n)
 	int		sign;
 	int		len;
 	long	nb;
-	
+
 	nb = (unsigned long)n;
 	sign = 0;
 	res = malloc(sizeof(char) * (nb_len(nb) + 1));
-	if(!res)
+	if (!res)
 		return (NULL);
 	len = nb_len(nb);
 	res[len] = 0;
@@ -57,15 +57,11 @@ char	*ft_itoa(int n)
 		nb = nb / 10;
 		len--;
 	}
-	
 	return (res);
 }
-
 
 // #include <stdio.h>
 // int main (void)
 // {
-
 // 	printf("ft_itoa(1010)----> %s\n",ft_itoa(-2147483648));
-	
 // }
