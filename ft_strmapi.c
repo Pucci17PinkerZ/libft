@@ -32,7 +32,6 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	while (i < (unsigned int)ft_strlen(s))
 	{
 		str[i] = f(i, s[i]);
-		printf("%d\n", i);
 		i++;
 	}
 	return (str[i] = 0, str);

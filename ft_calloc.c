@@ -20,12 +20,16 @@ void	*ft_calloc(size_t nmemb, size_t size)
 		return (NULL);
 	return (ft_bzero(ptr, nmemb * size), ptr);
 }
+
 // #include <stdio.h>
 // int main (void)
 // {
-// 	char *addr = ft_calloc(5, 5);
-// 	for(int i = 0;i < 5; i++)
-// 		addr[i] = ('a' + i);
-// 	for(int j = 0;j < 6; j++)
-// 		printf("%c ", addr[j]);
+// 	char *addr = ft_calloc(0,0);
+// 	// for(int i = 0;i < 5; i++)
+// 	// 	addr[i] = ('a' + i);
+// 	// for(int j = 0;j < 6; j++)
+// 		printf("%p ", addr);
+// 		if(free(addr))
+// 			printf("%s", "ok!!!");
+// 		printf("%p", NULL);
 // }

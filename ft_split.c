@@ -52,11 +52,8 @@ char	*ft_strndup(const char *s1, size_t n)
 
 void	ft_free(char **tab, int j)
 {
-	while (j >= 0)
-	{
-		free(tab[j]);
-		j--;
-	}
+	while (j > 0)
+		free(tab[--j]);
 	free(tab);
 }
 
@@ -82,11 +79,11 @@ int	ft_new_word(char const *s, char c, char **tab)
 		}
 		tab[j] = ft_strndup(&s[pos], letter);
 		if (!tab[j])
-			return(ft_free(tab, (int)(j - 1)), 0);
+			return (ft_free(tab, (int)(j)), 0);
 		j++;
 	}
 	tab[j] = 0;
-	return (0);
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
@@ -98,7 +95,8 @@ char	**ft_split(char const *s, char c)
 	tab = (char **)malloc(sizeof(char *) * (ft_count_words(s, c) + 1));
 	if (tab == NULL)
 		return (NULL);
-	ft_new_word(s, c, tab);
+	if (!ft_new_word(s, c, tab))
+		return (NULL);
 	return ((char **)tab);
 }
 
